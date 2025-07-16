@@ -4,6 +4,7 @@ import { OrbitControls, Stars } from '@react-three/drei';
 import './App.css';
 import SpaceScene from './components/SpaceScene';
 import ColorControls from './components/ColorControls';
+import MotionBlurEffect from './components/MotionBlurEffect';
 
 export interface ColorSettings {
   primary: string;
@@ -57,6 +58,7 @@ function App() {
             enablePan={true}
             enableRotate={true}
           />
+          <MotionBlurEffect intensity={0.8} enabled={true} />
         </Canvas>
       </div>
     </div>
