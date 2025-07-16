@@ -1,38 +1,224 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+}
+
+.controls-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border-right: 2px solid #00ffff;
+  padding: 20px;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.controls-panel h1 {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.canvas-container {
+  flex: 1;
+  margin-left: 300px;
+  position: relative;
+}
+
+.color-controls {
+  text-align: left;
+}
+
+.color-controls h2 {
+  color: #ff00ff;
+  text-shadow: 0 0 8px #ff00ff;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.control-group {
+  margin-bottom: 15px;
+}
+
+.control-group label {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+.control-group input[type="color"] {
+  width: 50px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.control-group input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.control-group input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.preset-buttons {
+  margin-top: 30px;
+}
+
+.preset-buttons h3 {
+  color: #ffff00;
+  text-shadow: 0 0 8px #ffff00;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.preset-buttons button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
+  border: 1px solid #00ffff;
+  border-radius: 5px;
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.preset-buttons button:hover {
+  background: linear-gradient(45deg, #00ffff, #0080ff);
+  color: #000000;
+  text-shadow: none;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+.preset-buttons button:active {
+  transform: translateY(0);
+}
+
+.shape-controls {
+  margin-top: 30px;
+}
+
+.shape-controls h3 {
+  color: #ffff00;
+  text-shadow: 0 0 8px #ffff00;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.shape-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.shape-buttons button {
+  padding: 8px;
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
+  border: 1px solid #00ffff;
+  border-radius: 5px;
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.shape-buttons button:hover {
+  background: linear-gradient(45deg, #00ffff, #0080ff);
+  color: #000000;
+  text-shadow: none;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+.shape-buttons button.active {
+  background: linear-gradient(45deg, #ff00ff, #ff0080);
+  color: #ffffff;
+  text-shadow: 0 0 8px #ff00ff;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+}
+
+.shape-buttons button.active:hover {
+  background: linear-gradient(45deg, #ff0080, #ff00ff);
+}
+
+/* Scrollbar styling */
+.controls-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.controls-panel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.controls-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  border-radius: 4px;
+}
+
+.controls-panel::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff00ff, #ffff00);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .controls-panel {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 2px solid #00ffff;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .canvas-container {
+    margin-left: 0;
+    height: 60vh;
   }
+  
+  .App {
+    flex-direction: column;
+  }
+}
+
+/* Animation for glowing effect */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+.controls-panel h1,
+.color-controls h2,
+.preset-buttons h3 {
+  animation: glow 2s ease-in-out infinite alternate;
 }
